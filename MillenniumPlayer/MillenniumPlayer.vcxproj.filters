@@ -28,6 +28,36 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Foundation">
+      <UniqueIdentifier>{d866995a-3174-41cb-b7df-78ffa94e9fd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\View">
+      <UniqueIdentifier>{6701a94e-bb36-4b7a-99e7-e1c643f778f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Effect">
+      <UniqueIdentifier>{5ff73450-8e67-4978-8e2f-f9e57dfb6976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control">
+      <UniqueIdentifier>{6d35b995-5b0c-4058-b31e-b25271675c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\CaptionButton">
+      <UniqueIdentifier>{4b88e3ba-238e-43fe-9f47-ee3aa28a53ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\ActionButton">
+      <UniqueIdentifier>{cce12cc1-02f2-46a0-bb18-566617bfd914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\ImageWidget">
+      <UniqueIdentifier>{bdb80fff-6821-4b78-b32e-3dc312a39fed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\Label">
+      <UniqueIdentifier>{0c34b8fc-7103-433b-845c-51631182dcd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\Slider">
+      <UniqueIdentifier>{cd0384bb-cf37-43ff-b3f0-7200450c7d1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\Menu">
+      <UniqueIdentifier>{6f285788-4cac-49ae-939e-ee24ee9e3cce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,24 +78,177 @@
     <ClCompile Include="GeneratedFiles\qrc_MainView.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_BaseView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_BaseView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\View\BaseView.cpp">
+      <Filter>Foundation\View</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CaptionButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CaptionButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\CaptionButton.cpp">
+      <Filter>Foundation\Control\CaptionButton</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ActionButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ActionButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\ActionButton.cpp">
+      <Filter>Foundation\Control\ActionButton</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ImageWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ImageWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\ImageWidget.cpp">
+      <Filter>Foundation\Control\ImageWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Label.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Label.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\Label.cpp">
+      <Filter>Foundation\Control\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Slider.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Slider.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\Slider.cpp">
+      <Filter>Foundation\Control\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CustomShadowEffect.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CustomShadowEffect.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Effect\CustomShadowEffect.cpp">
+      <Filter>Foundation\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Menu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Menu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\Menu.cpp">
+      <Filter>Foundation\Control\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AboutView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AboutView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\View\AboutView.cpp">
+      <Filter>Foundation\View</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SettingView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SettingView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\View\SettingView.cpp">
+      <Filter>Foundation\View</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_icons.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SystemTray.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SystemTray.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\SystemTray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_MainView.h">
+    <ClInclude Include="Foundation\Effect\WindowCompositionAttribute.h">
+      <Filter>Foundation\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AboutView.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SettingView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainView.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="MainView.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="MainView.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="Foundation\View\BaseView.h">
+      <Filter>Foundation\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\CaptionButton.h">
+      <Filter>Foundation\Control\CaptionButton</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\ActionButton.h">
+      <Filter>Foundation\Control\ActionButton</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\ImageWidget.h">
+      <Filter>Foundation\Control\ImageWidget</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\Label.h">
+      <Filter>Foundation\Control\Label</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\Slider.h">
+      <Filter>Foundation\Control\Slider</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Effect\CustomShadowEffect.h">
+      <Filter>Foundation\Effect</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\Menu.h">
+      <Filter>Foundation\Control\Menu</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\View\AboutView.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\View\AboutView.h">
+      <Filter>Foundation\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\View\SettingView.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\View\SettingView.h">
+      <Filter>Foundation\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Resources\icons.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\SystemTray.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MillenniumPlayer.rc" />
   </ItemGroup>
 </Project>

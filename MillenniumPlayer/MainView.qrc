@@ -1,4 +1,19 @@
 <RCC>
-    <qresource prefix="MainView">
+    <qresource prefix="/MainView">
+        <file>Resources/CaptionButton/Close.png</file>
+        <file>Resources/CaptionButton/CloseHover.png</file>
+        <file>Resources/CaptionButton/ClosePressed.png</file>
+        <file>Resources/CaptionButton/NoState.png</file>
+        <file>Resources/CaptionButton/Min.png</file>
+        <file>Resources/CaptionButton/MinHover.png</file>
+        <file>Resources/CaptionButton/MinPressed.png</file>
+        <file>Resources/CaptionButton/Max.png</file>
+        <file>Resources/CaptionButton/FullScreenHover.png</file>
+        <file>Resources/CaptionButton/MaxHover.png</file>
+        <file>Resources/CaptionButton/MaxPressed.png</file>
+        <file>Resources/List.svg</file>
+        <file>Resources/Favourite.svg</file>
+        <file>Resources/Volume.svg</file>
+        <file>Resources/NormalTheme.qss</file>
     </qresource>
 </RCC>
