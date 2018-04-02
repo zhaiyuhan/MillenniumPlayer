@@ -63,7 +63,7 @@ private:
 		layout2->addWidget(volumeSlider, 0, Qt::AlignCenter);
 		layout2->setSpacing(5);
 		layout2->setContentsMargins(0, 0, 0, 5);
-		TitleLabel->setText("player");
+		TitleLabel->setText(QString::fromLocal8Bit("ÔÝÎÞ²¥·Å"));
 		TitleLabel->setEnabled(false);
 		m_playWidget->setLayout(layout2);
 

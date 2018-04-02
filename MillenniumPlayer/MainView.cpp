@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "MainView.h"
 #include <QPalette>
+#include "3dParty\taglib\fileref.h"
+#include "3dParty\taglib\toolkit\tstringlist.h"
+using namespace TagLib;
 MainView::MainView(QWidget *parent)
 	: BaseView(parent)
 {
@@ -15,35 +18,20 @@ MainView::MainView(QWidget *parent)
 void MainView::initView()
 {
 	setupUI();
-	QPalette pal(AlbumImageWidget->palette());
-	pal.setColor(QPalette::Background, Qt::white);
-	AlbumImageWidget->setPalette(pal);
-	AlbumImageWidget->setAutoFillBackground(true);
 	CustomShadowEffect *bodyShadow = new CustomShadowEffect();
-	bodyShadow->setBlurRadius(10.0);
-	bodyShadow->setDistance(2.0);
+	bodyShadow->setBlurRadius(15.0);
+	bodyShadow->setDistance(4.0);
 	bodyShadow->setColor(QColor(21, 25, 30, 60));
 	AlbumImageWidget->setGraphicsEffect(bodyShadow);
 	AlbumImageWidget->show();	
-	//setCentralWidget(m_stackedwidget);
 	initLayout();
+	initEvents();
 }
 
 void MainView::resizeEvent(QResizeEvent * event)
 {
 	ListButton->move((event->size().width() - 50), 20);	
 	m_stackedwidget->move(((event->size().width()-600) / 2), ((event->size().height()-300) / 2));
-	/*AlbumImageWidget->move(((event->size().width() - 250) / 2 - 200), ((event->size().height() - 200) / 2));	
-		
-	VolumeButton->move((event->size().width() - 120), AlbumImageWidget->y());	
-	TitleLabel->resize(100, 40);
-	TitleLabel->move(AlbumImageWidget->x() + AlbumImageWidget->width() + 20, AlbumImageWidget->y());
-	ArtistLabel->move(TitleLabel->x(), AlbumImageWidget->y() + TitleLabel->height() + 3);		
-	FavouriteButton->move(TitleLabel->x(), ArtistLabel->y() + 45);	
-	CurrentTime->move(TitleLabel->x(), FavouriteButton->y() + TitleLabel->height() + 3);
-	LeftTime->move(VolumeButton->x(), FavouriteButton->y() + TitleLabel->height() + 3);
-	ProgressSlider->resize(VolumeButton->x() - TitleLabel->x() + 25, 25);
-	ProgressSlider->move(TitleLabel->x(), FavouriteButton->y() + 70);*/
 	BaseView::resizeEvent();
 }
 
@@ -52,6 +40,34 @@ void MainView::contextMenuEvent(QContextMenuEvent *)
 	QCursor cur = this->cursor();
 	menu = new Menu(this);
 	QAction *OpenAction = new QAction(tr("Open"), this);
+	connect(OpenAction, &QAction::triggered, this, [=]()
+	{
+		QFileDialog dialog(this);
+		dialog.setFileMode(QFileDialog::AnyFile);
+		QStringList fileName;
+		if (dialog.exec() == QDialog::Accepted) 
+		{
+			fileName = dialog.selectedFiles();
+			//检查文件信息
+			m_MUSIC_TAG_INFO = new MUSIC_TAG_INFO(this);
+			m_MUSIC_TAG_INFO->loadSong(fileName[0]);
+			tag["Title"] = m_MUSIC_TAG_INFO->getTitle();
+			tag["Artist"] = m_MUSIC_TAG_INFO->getArtist();
+			tag["Album"] = m_MUSIC_TAG_INFO->getAlbum();
+			tag["Duration"] = m_MUSIC_TAG_INFO->getDuration();	
+			coverPicture = m_MUSIC_TAG_INFO->getCoverPicture();
+			m_MUSIC_TAG_INFO->unloadSong();
+			//检查文件信息结束	
+			TitleLabel->setText(tag["Title"]);
+			ArtistLabel->setText(tag["Artist"]);
+			AlbumImageWidget->setCoverImage(coverPicture);
+			LeftTime->setText(tag["Duration"]);		
+			m_MUSIC_PLAYER->loadFile(fileName[0]);
+			fileName.clear();
+		}
+			
+		
+	});
 	QAction *OpenAudioCDAction = new QAction(tr("Open audio CD"), this);
 	QAction *AddFilesAction = new QAction(tr("Add Files"), this);
 	QAction *AddFloderAction = new QAction(tr("Add Floder"), this);
@@ -68,14 +84,21 @@ void MainView::contextMenuEvent(QContextMenuEvent *)
 	menu->addSeparator();
 	menu->addAction(SettingAction);	
 	connect(SettingAction, &QAction::triggered, this,
-		[=]() { SettingView *settingview = new SettingView(this);  settingview->show(); });
+		[=]() { 
+		SettingView *settingview = new SettingView(this);  
+		settingview->show(); });
+
 	menu->addAction(HiddenAction);
 	connect(HiddenAction, &QAction::triggered, this,
-		[=]() { hide(); systemTray->show();
-	});
+		[=]() {
+		hide(); 
+		systemTray->show(); });
+
 	menu->addAction(AboutAction);
 	connect(AboutAction, &QAction::triggered, this,
-		[=]() { AboutView *aboutview = new AboutView(this); aboutview->exec(); });
+		[=]() { 
+		AboutView *aboutview = new AboutView(this); 
+		aboutview->exec(); });
 	menu->addSeparator();
 	menu->addAction(deleteAction);
 	connect(deleteAction, &QAction::triggered, this,

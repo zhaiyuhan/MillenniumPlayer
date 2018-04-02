@@ -18,7 +18,23 @@ ActionButton::~ActionButton()
 
 void ActionButton::mousePressEvent(QMouseEvent *event)
 {
-	QPushButton::mousePressEvent(event);
+	if (event->button() == Qt::LeftButton)
+	{
+		_ifPress = true;
+		e_status = PRESS;
+		update();
+	}
+}
+
+void ActionButton::mouseReleaseEvent(QMouseEvent * event)
+{
+	if (_ifPress  && rect().contains(event->pos()))
+	{
+		_ifPress = false;
+		e_status = ENTER;
+		update();
+		emit clicked();
+	}
 }
 
 void ActionButton::paintEvent(QPaintEvent *)

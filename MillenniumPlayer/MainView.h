@@ -2,6 +2,9 @@
 
 #include <QtWidgets/QMainWindow>
 #include "Foundation/View/BaseView.h"
+#include "Foundation/Control/ActionButton.h"
+#include "Foundation/Core/MUSIC_TAG_INFO.h"
+#include "Foundation/Core/MUSIC_PLAYER.h"
 
 class MainView : public BaseView
 {
@@ -13,6 +16,15 @@ public:
 protected:
 	void setupUI()
 	{
+		PreivousButton = new ActionButton(this);
+		PreivousButton->setFixedSize(25, 25);
+		PreivousButton->setICON(QPixmap(":/Icons/previous.svg"));
+		PlayButton = new ActionButton(this);
+		PlayButton->setFixedSize(25, 25);
+		PlayButton->setICON(QPixmap(":/Icons/play.svg"));
+		NextButton = new ActionButton(this);
+		NextButton->setFixedSize(25, 25);
+		NextButton->setICON(QPixmap(":/Icons/next.svg"));
 		AlbumImageWidget = new ImageWidget(this);
 		AlbumImageWidget->setFixedSize(250, 250);
 		ListButton = new ActionButton(this);		
@@ -43,44 +55,79 @@ protected:
 		ProgressSlider = new Slider(this);
 		ProgressSlider->setOrientation(Qt::Horizontal);
 		systemTray = new SystemTray(this);
+		m_MUSIC_PLAYER = new MUSIC_PLAYER(this);
 	}
 	void initLayout()
 	{
 		m_hboxlayout = new QHBoxLayout();
 		m_gridlayout = new QGridLayout();
 		m_gridlayout->addWidget(TitleLabel, 0, 0, 1, 1, Qt::AlignLeft | Qt::AlignVCenter);
-		m_gridlayout->addWidget(VolumeButton, 0, 1, 1, 1, Qt::AlignRight | Qt::AlignVCenter);
+		m_gridlayout->addWidget(VolumeButton, 0, 2, 1, 1, Qt::AlignRight | Qt::AlignVCenter);
 		m_gridlayout->addWidget(ArtistLabel, 1, 0, 1, 1, Qt::AlignLeft | Qt::AlignVCenter);
 		m_gridlayout->addWidget(FavouriteButton, 2, 0, 1, 1, Qt::AlignLeft | Qt::AlignVCenter);
 		m_gridlayout->addWidget(CurrentTime, 3, 0, 1, 1, Qt::AlignLeft | Qt::AlignVCenter);
-		m_gridlayout->addWidget(LeftTime, 3, 1, 1, 1, Qt::AlignRight | Qt::AlignVCenter);
-		m_gridlayout->addWidget(ProgressSlider, 4, 0, 1, 2, Qt::AlignVCenter);
+		m_gridlayout->addWidget(LeftTime, 3, 2, 1, 1, Qt::AlignRight | Qt::AlignVCenter);
+		m_gridlayout->addWidget(ProgressSlider, 4, 0, 1, 3, Qt::AlignVCenter);
+		m_gridlayout->addWidget(PreivousButton, 5, 0, 1, 1, Qt::AlignHCenter | Qt::AlignVCenter);
+		m_gridlayout->addWidget(PlayButton, 5, 1, 1, 1, Qt::AlignHCenter | Qt::AlignVCenter);
+		m_gridlayout->addWidget(NextButton, 5, 2, 1, 1, Qt::AlignHCenter | Qt::AlignVCenter);
 		m_hboxlayout->addWidget(AlbumImageWidget);
 		m_hboxlayout->addLayout(m_gridlayout);
 		m_stackedwidget = new QStackedWidget(this);
 		
 		QWidget *w1 = new QWidget();
+		QWidget *w2 = new QWidget();
 		w1->setLayout(m_hboxlayout);
 		m_stackedwidget->addWidget(w1);
+		m_stackedwidget->addWidget(w2);
+		connect(ListButton, &QPushButton::clicked, this, [=]()
+		{ m_stackedwidget->setCurrentWidget(w2); });
 		m_stackedwidget->resize(600, 300);
 		//setLayout(m_hboxlayout);
+	}
+	void initEvents()
+	{		
+		connect(AlbumImageWidget, &ImageWidget::clicked, this,
+			[=]() { 
+			InformationView *informationview = new InformationView(this);  
+			informationview->updateInformation(tag, coverPicture);
+			QPalette p(informationview->palette());
+			p.setColor(QPalette::Background, Qt::white);
+			informationview->setPalette(p);
+			informationview->show(); });
+		connect(AlbumImageWidget, &ImageWidget::hover, this,
+			[=](bool enter) { if (enter) { setCursor(Qt::PointingHandCursor); } else { setCursor(Qt::ArrowCursor); } });
+		connect(PlayButton, &QPushButton::clicked, this,
+			[=]() { m_MUSIC_PLAYER->play(); });
+		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::positionUpdated, this,
+			[=]() { CurrentTime->setText(m_MUSIC_PLAYER->updateTime()); });
+		connect(m_MUSIC_PLAYER, SIGNAL(positionChanged(int)), ProgressSlider, SLOT(setValue(int)));
+		
 	}
 	void initView();
 	void resizeEvent(QResizeEvent *event);
 	void contextMenuEvent(QContextMenuEvent *);
 private:
+	MUSIC_TAG_INFO * m_MUSIC_TAG_INFO;
+	MUSIC_PLAYER * m_MUSIC_PLAYER;
+	QMap<QString, QString> tag;
+	QImage coverPicture;
+private:
 	QHBoxLayout * m_hboxlayout;
 	QStackedWidget * m_stackedwidget;
 	QGridLayout * m_gridlayout;
-	ImageWidget *AlbumImageWidget;
-	ActionButton *ListButton;
-	ActionButton *VolumeButton;
-	ActionButton *FavouriteButton;
-	Label *ArtistLabel;
-	Label *TitleLabel;
-	Label *CurrentTime;
-	Label *LeftTime;
-	Slider *ProgressSlider;
-	Menu *menu;
-	SystemTray *systemTray;
+	ImageWidget * AlbumImageWidget;
+	ActionButton * PreivousButton;
+	ActionButton * PlayButton;
+	ActionButton * NextButton;
+	ActionButton * ListButton;
+	ActionButton * VolumeButton;
+	ActionButton * FavouriteButton;
+	Label * ArtistLabel;
+	Label * TitleLabel;
+	Label * CurrentTime;
+	Label * LeftTime;
+	Slider * ProgressSlider;
+	Menu * menu;
+	SystemTray * systemTray;
 };

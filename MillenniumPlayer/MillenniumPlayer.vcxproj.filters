@@ -58,6 +58,9 @@
     <Filter Include="Foundation\Control\Menu">
       <UniqueIdentifier>{6f285788-4cac-49ae-939e-ee24ee9e3cce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Foundation\Core">
+      <UniqueIdentifier>{ee48748b-042f-4326-b8f2-15beaa75c5a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,6 +183,33 @@
     <ClCompile Include="Foundation\Control\SystemTray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MUSIC_TAG_INFO.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MUSIC_TAG_INFO.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Core\MUSIC_TAG_INFO.cpp">
+      <Filter>Foundation\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MUSIC_PLAYER.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MUSIC_PLAYER.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Core\MUSIC_PLAYER.cpp">
+      <Filter>Foundation\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_InformationView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_InformationView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\View\InformationView.cpp">
+      <Filter>Foundation\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -246,6 +276,15 @@
     </CustomBuild>
     <CustomBuild Include="Foundation\Control\SystemTray.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Core\MUSIC_TAG_INFO.h">
+      <Filter>Foundation\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Core\MUSIC_PLAYER.h">
+      <Filter>Foundation\Core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\View\InformationView.h">
+      <Filter>Foundation\View</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

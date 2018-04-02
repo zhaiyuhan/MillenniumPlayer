@@ -22,6 +22,8 @@ SettingView::SettingView(QWidget *parent)
 	bodyShadow->setColor(QColor(21, 25, 30, 60));
 	ui.stackedWidget->setAutoFillBackground(true);
 	ui.stackedWidget->setGraphicsEffect(bodyShadow);
+	initLayouts();
+	initEvents();
 }
 
 SettingView::~SettingView()

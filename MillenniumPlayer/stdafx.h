@@ -3,6 +3,7 @@
 #include "dwmapi.h"
 #include <QEvent>
 #include <QMouseEvent>
+#include <QMap>
 #include <QFont>
 #include <QPalette>
 #include <QPropertyAnimation>
@@ -11,9 +12,9 @@
 #include <QWidgetAction>
 #include <QLayout>
 #include <QStackedWidget>
+#include <QTimer>
 #include "Foundation/Effect/WindowCompositionAttribute.h"
 #include "Foundation/Effect/CustomShadowEffect.h"
-#include "Foundation/Control/ActionButton.h"
 #include "Foundation/Control/ImageWidget.h"
 #include "Foundation/Control/Label.h"
 #include "Foundation/Control/Slider.h"
@@ -21,3 +22,5 @@
 #include "Foundation/Control/SystemTray.h"
 #include "Foundation/View/AboutView.h"
 #include "Foundation/View/SettingView.h"
+#include "Foundation/View/InformationView.h"
+

@@ -27,6 +27,7 @@ protected:
 	void paintEvent(QPaintEvent *);
 
 private:
+	
 	ButtonStatus e_status;
 	ButtonType e_type;
 	bool _ifPress = false;
