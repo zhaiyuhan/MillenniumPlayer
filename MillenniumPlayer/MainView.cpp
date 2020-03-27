@@ -9,6 +9,7 @@ MainView::MainView(QWidget *parent)
 {
 	setMinimumSize(810, 500);
 	EnableBackgroundColor(QColor(0x00, 0xff, 0x00, 0x00));
+	EnableAnimation(true);
 	EnableGaussianBlur(true);
 	EnableWindowShadow(true);
 	initView();

@@ -17,11 +17,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
@@ -30,7 +30,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\wavpack;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\mpc;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\mod;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\ogg\vorbis;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\ogg;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\mp4;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\flac;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\asf;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\ape;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\toolkit;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\mpeg\id3v2\frames;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\mpeg\id3v2;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty\taglib\mpeg;$(IncludePath)</IncludePath>
+    <IncludePath>.\3rdParty\TagLib\Includes;.\3rdParty\BASS\Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -51,9 +51,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:\Users\ZhaiChangtui\Documents\Visual Studio 2017\Projects\MillenniumPlayer\MillenniumPlayer\3dParty;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;.\3rdParty\TagLib\Lib;.\3rdParty\BASS\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5WinExtrasd.lib;tag.lib;bass.lib;bassflac.lib;Qt5Svgd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5WinExtrasd.lib;Qt5Svgd.lib;bass.lib;bassflac.lib;tag.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

@@ -11,7 +11,7 @@ class BaseView : public QMainWindow
 	Q_OBJECT
 
 public:
-	BaseView(QWidget *parent);
+	explicit BaseView(QWidget* parent = nullptr);
 	~BaseView();
 
 protected:
@@ -31,6 +31,14 @@ protected:
 #endif
 	}
 
+	auto EnableAnimation(bool _enable) -> void {
+		if (_enable)
+		{
+			HWND hWnd = (HWND)this->winId();
+			DWORD style = ::GetWindowLong(hWnd, GWL_STYLE);
+			SetWindowLong(hWnd, GWL_STYLE, style | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CAPTION | CS_DBLCLKS);
+		}
+	}
 	void EnableGaussianBlur(bool ifEnable)
 	{
 		if (ifEnable)
@@ -79,6 +87,28 @@ protected:
 signals:
 	void isHadFocuse(bool had);
 
+private:
+	auto composition_enabled() -> bool {
+		auto composition_enabled = FALSE;
+		auto success = ::DwmIsCompositionEnabled(&composition_enabled) == S_OK;
+		return composition_enabled && success;
+	}
+	auto ifMaximized(HWND hwnd) -> bool
+	{
+		WINDOWPLACEMENT placement{};
+		if (!::GetWindowPlacement(hwnd, &placement)) { return false; }
+		return placement.showCmd == SW_MAXIMIZE;
+	}
+	auto adjust_maximized_client_rect(HWND window, RECT& rect) -> void
+	{
+		if (!ifMaximized(window)) { return; }
+		HMONITOR monitor = ::MonitorFromWindow(window, MONITOR_DEFAULTTONULL);
+		if (!monitor) { return; }
+		MONITORINFO monitor_info{};
+		monitor_info.cbSize = sizeof(monitor_info);
+		if (!::GetMonitorInfoW(monitor, &monitor_info)) { return; }
+		rect = monitor_info.rcWork;
+	}
 private:
 	void setupUI()
 	{

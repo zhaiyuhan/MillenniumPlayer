@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QThread>
-#include "3dParty/bass.h"
+#include "3rdparty/BASS/Includes/bass.h"
 class MUSIC_PLAYER : public QThread
 {
 	Q_OBJECT
