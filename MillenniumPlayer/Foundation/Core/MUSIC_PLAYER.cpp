@@ -21,43 +21,49 @@ MUSIC_PLAYER::MUSIC_PLAYER(QObject *parent)
 
 MUSIC_PLAYER::~MUSIC_PLAYER()
 {
-	BASS_ChannelStop(m_chan);
-	BASS_MusicFree(m_chan);
-	BASS_StreamFree(m_chan);
+	BASS_ChannelStop(m_stream);
+	BASS_MusicFree(m_stream);
+	BASS_StreamFree(m_stream);
 	BASS_Stop();
 	BASS_Free();
+}
+
+double MUSIC_PLAYER::getTotalLength()
+{
+	return BASS_ChannelBytes2Seconds(m_stream, BASS_ChannelGetLength(m_stream, BASS_POS_BYTE));
 }
 
 void MUSIC_PLAYER::loadFile(QString& _filepath)
 {
 	//释放先前资源
-	BASS_ChannelStop(m_chan);
-	BASS_MusicFree(m_chan);
-	BASS_StreamFree(m_chan);
+	BASS_ChannelStop(m_stream);
+	BASS_MusicFree(m_stream);
+	BASS_StreamFree(m_stream);
 	m_timer->stop();
 	//转码
 	const wchar_t * encoded_filepath = reinterpret_cast<const wchar_t *>(_filepath.utf16());
-	if (!(m_chan = BASS_StreamCreateFile(false, encoded_filepath, 0, 0, BASS_SAMPLE_LOOP | BASS_SAMPLE_FX))
-		&& !(m_chan = BASS_MusicLoad(false, encoded_filepath, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP | BASS_SAMPLE_FX, 1))
-		&& !(m_chan = BASS_StreamCreateURL(_filepath.toUtf8().constData(), 0, BASS_SAMPLE_LOOP | BASS_SAMPLE_FX, 0, 0)))
+	if (!(m_stream = BASS_StreamCreateFile(false, encoded_filepath, 0, 0, BASS_SAMPLE_LOOP | BASS_SAMPLE_FX))
+		&& !(m_stream = BASS_MusicLoad(false, encoded_filepath, 0, 0, BASS_MUSIC_RAMP | BASS_SAMPLE_LOOP | BASS_SAMPLE_FX, 1))
+		&& !(m_stream = BASS_StreamCreateURL(_filepath.toUtf8().constData(), 0, BASS_SAMPLE_LOOP | BASS_SAMPLE_FX, 0, 0)))
 		return;
 	else {
-		BASS_ChannelPlay(m_chan, true);
+		BASS_ChannelPlay(m_stream, true);
 		m_timer->start(100);
-		BASS_ChannelSetSync(m_chan, BASS_SYNC_POS, 0, &syncFunc, 0);
+		BASS_ChannelSetSync(m_stream, BASS_SYNC_POS, 0, &syncFunc, 0);
 		emit(PlayState(false));
+		//(int)BASS_ChannelBytes2Seconds(m_chan, BASS_ChannelGetPosition(m_chan));
 	}
 
 }
 
 void MUSIC_PLAYER::play()
 {
-	switch (BASS_ChannelIsActive(m_chan))
+	switch (BASS_ChannelIsActive(m_stream))
 	{
 	case BASS_ACTIVE_STOPPED:
-		BASS_ChannelPlay(m_chan, true);
+		BASS_ChannelPlay(m_stream, true);
 		m_timer->start(100);
-		BASS_ChannelSetSync(m_chan, BASS_SYNC_POS, 0, &syncFunc, 0);
+		BASS_ChannelSetSync(m_stream, BASS_SYNC_POS, 0, &syncFunc, 0);
 		emit(PlayState(false));
 	case BASS_ACTIVE_PLAYING:
 		emit(PlayState(true));
@@ -65,25 +71,25 @@ void MUSIC_PLAYER::play()
 		break;
 	case BASS_ACTIVE_PAUSED:
 		emit(PlayState(false));
-		BASS_ChannelPlay(m_chan, false);
+		BASS_ChannelPlay(m_stream, false);
 		break;
 	default:
-		BASS_ChannelPlay(m_chan, true);
+		BASS_ChannelPlay(m_stream, true);
 		m_timer->start(100);
-		BASS_ChannelSetSync(m_chan, BASS_SYNC_POS, 0, &syncFunc, 0);
+		BASS_ChannelSetSync(m_stream, BASS_SYNC_POS, 0, &syncFunc, 0);
 		break;
 	}
 }
 
 void MUSIC_PLAYER::pause()
 {
-	BASS_ChannelPause(m_chan);
+	BASS_ChannelPause(m_stream);
 	m_timer->stop();
 }
 
 void MUSIC_PLAYER::resume()
 {
-	if (!BASS_ChannelPlay(m_chan, false))
+	if (!BASS_ChannelPlay(m_stream, false))
 		return;
 	else {
 		m_timer->start(98);
@@ -92,7 +98,7 @@ void MUSIC_PLAYER::resume()
 
 void MUSIC_PLAYER::stop()
 {
-	BASS_ChannelStop(m_chan);
+	BASS_ChannelStop(m_stream);
 	m_timer->stop();
 
 }
@@ -103,18 +109,18 @@ void MUSIC_PLAYER::setVolume(int vol)
 	BASS_SetVolume(bassvol);
 }
 
-void MUSIC_PLAYER::setPosition(int position)
+void MUSIC_PLAYER::setPosition(double position)
 {
-	BASS_ChannelSetPosition(m_chan, BASS_ChannelSeconds2Bytes(m_chan, position), BASS_POS_BYTE);
+	BASS_ChannelSetPosition(m_stream, BASS_ChannelSeconds2Bytes(m_stream, position), BASS_POS_BYTE);
 }
 
 QString MUSIC_PLAYER::updateTime()
 {
 	
-	if (BASS_ChannelIsActive(m_chan) != BASS_ACTIVE_STOPPED)
+	if (BASS_ChannelIsActive(m_stream) != BASS_ACTIVE_STOPPED)
 	{
 		QTime elapsedtime(0, 0, 0, 0);
-	elapsedtime = elapsedtime.addSecs(BASS_ChannelBytes2Seconds(m_chan, BASS_ChannelGetPosition(m_chan, BASS_POS_BYTE)));
+	elapsedtime = elapsedtime.addSecs(BASS_ChannelBytes2Seconds(m_stream, BASS_ChannelGetPosition(m_stream, BASS_POS_BYTE)));
 	return elapsedtime.toString("mm:ss");
 	
 	}
@@ -123,8 +129,8 @@ QString MUSIC_PLAYER::updateTime()
 
 void MUSIC_PLAYER::update()
 {
-	if (BASS_ChannelIsActive(m_chan) != BASS_ACTIVE_STOPPED) {
-		emit positionChanged(BASS_ChannelBytes2Seconds(m_chan, BASS_ChannelGetPosition(m_chan, BASS_POS_BYTE)));	
+	if (BASS_ChannelIsActive(m_stream) != BASS_ACTIVE_STOPPED) {
+		emit positionChanged(BASS_ChannelBytes2Seconds(m_stream, BASS_ChannelGetPosition(m_stream, BASS_POS_BYTE)));	
 	}
 	else {
 		emit songFinished();

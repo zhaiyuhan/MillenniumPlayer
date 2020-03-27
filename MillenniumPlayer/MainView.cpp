@@ -64,6 +64,8 @@ void MainView::contextMenuEvent(QContextMenuEvent *)
 			AlbumImageWidget->setCoverImage(coverPicture);
 			LeftTime->setText(tag["Duration"]);		
 			m_MUSIC_PLAYER->loadFile(fileName[0]);
+			ProgressSlider->setRange(0, (int)m_MUSIC_PLAYER->getTotalLength());
+			qDebug() << m_MUSIC_PLAYER->getTotalLength();
 			fileName.clear();
 		}
 			

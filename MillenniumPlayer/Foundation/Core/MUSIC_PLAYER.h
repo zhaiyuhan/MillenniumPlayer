@@ -9,12 +9,12 @@ class MUSIC_PLAYER : public QThread
 public:
 	explicit MUSIC_PLAYER(QObject *parent);
 	~MUSIC_PLAYER();
-
+	double getTotalLength();
 Q_SIGNALS:
 	void loadFileFinished();
 	void songFinished();
 	void positionUpdated();
-	void positionChanged(int Position);
+	void positionChanged(double Position);
 	void PlayState(bool _isplaying);
 
 public Q_SLOTS:
@@ -24,12 +24,12 @@ public Q_SLOTS:
 	void resume();
 	void stop();
 	void setVolume(int vol);
-	void setPosition(int position);
+	void setPosition(double position);
 	QString updateTime();
 	void update();
 
 private:
-	unsigned long m_chan;
+	unsigned long m_stream;
 	QTimer * m_timer;
 
 };

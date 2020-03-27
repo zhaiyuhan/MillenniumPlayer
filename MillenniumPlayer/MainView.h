@@ -54,7 +54,7 @@ protected:
 		CurrentTime->setPalette(p);
 		LeftTime = new Label(this, QString("00:00"));
 		LeftTime->setPalette(p);
-		ProgressSlider = new QtMaterialSlider(this);
+		ProgressSlider = new Slider(this);
 		ProgressSlider->setOrientation(Qt::Horizontal);
 		systemTray = new SystemTray(this);
 		m_MUSIC_PLAYER = new MUSIC_PLAYER(this);
@@ -107,7 +107,7 @@ protected:
 			});
 		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::positionUpdated, this,
 			[=]() { CurrentTime->setText(m_MUSIC_PLAYER->updateTime()); });
-		connect(m_MUSIC_PLAYER, SIGNAL(positionChanged(int)), ProgressSlider, SLOT(setValue(int)));
+		connect(m_MUSIC_PLAYER, SIGNAL(positionChanged(double)), ProgressSlider, SLOT(setValue(double)));
 		
 	}
 	void initView();
@@ -133,7 +133,7 @@ private:
 	Label * TitleLabel;
 	Label * CurrentTime;
 	Label * LeftTime;
-	QtMaterialSlider* ProgressSlider;
+	Slider* ProgressSlider;
 	Menu * menu;
 	SystemTray * systemTray;
 };
