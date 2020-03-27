@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include "3rdparty/QMW/Includes/qtmaterialiconbutton.h"
+#include "3rdparty/QMW/Includes/qtmaterialslider.h"
 #include "Foundation/View/BaseView.h"
 #include "Foundation/Control/ActionButton.h"
 #include "Foundation/Core/MUSIC_TAG_INFO.h"
@@ -16,26 +18,26 @@ public:
 protected:
 	void setupUI()
 	{
-		PreivousButton = new ActionButton(this);
+		PreivousButton = new QtMaterialIconButton(QIcon(":/Icons/previous.svg"), this);
 		PreivousButton->setFixedSize(25, 25);
-		PreivousButton->setICON(QPixmap(":/Icons/previous.svg"));
-		PlayButton = new ActionButton(this);
+		PreivousButton->setColor(Qt::white);
+		PlayButton = new QtMaterialIconButton(QIcon(":/Icons/play.svg"), this);
 		PlayButton->setFixedSize(25, 25);
-		PlayButton->setICON(QPixmap(":/Icons/play.svg"));
-		NextButton = new ActionButton(this);
+		PlayButton->setColor(Qt::white);
+		NextButton = new QtMaterialIconButton(QIcon(":/Icons/next.svg"), this);
 		NextButton->setFixedSize(25, 25);
-		NextButton->setICON(QPixmap(":/Icons/next.svg"));
+		NextButton->setColor(Qt::white);
 		AlbumImageWidget = new ImageWidget(this);
 		AlbumImageWidget->setFixedSize(250, 250);
-		ListButton = new ActionButton(this);		
+		ListButton = new QtMaterialIconButton(QIcon(":/MainView/Resources/List.svg"), this);
 		ListButton->setFixedSize(25, 25);
-		ListButton->setICON(QPixmap(":/MainView/Resources/List.svg"));
-		VolumeButton = new ActionButton(this);
+		ListButton->setColor(Qt::white);
+		VolumeButton = new QtMaterialIconButton(QIcon(":/MainView/Resources/Volume.svg"), this);
 		VolumeButton->setFixedSize(25, 25);
-		VolumeButton->setICON(QPixmap(":/MainView/Resources/Volume.svg"));
-		FavouriteButton = new ActionButton(this);
+		VolumeButton->setColor(Qt::white);
+		FavouriteButton = new QtMaterialIconButton(QIcon(":/MainView/Resources/Favourite.svg"), this);
 		FavouriteButton->setFixedSize(20, 20);
-		FavouriteButton->setICON(QPixmap(":/MainView/Resources/Favourite.svg"));
+		FavouriteButton->setColor(Qt::white);
 		ArtistLabel = new Label(this, QString("Artist"));
 		QFont f;// ("Microsoft YaHei", 10, QFont::Light);
 		f.setFamily("Microsoft YaHei UI Light");
@@ -52,7 +54,7 @@ protected:
 		CurrentTime->setPalette(p);
 		LeftTime = new Label(this, QString("00:00"));
 		LeftTime->setPalette(p);
-		ProgressSlider = new Slider(this);
+		ProgressSlider = new QtMaterialSlider(this);
 		ProgressSlider->setOrientation(Qt::Horizontal);
 		systemTray = new SystemTray(this);
 		m_MUSIC_PLAYER = new MUSIC_PLAYER(this);
@@ -99,6 +101,10 @@ protected:
 			[=](bool enter) { if (enter) { setCursor(Qt::PointingHandCursor); } else { setCursor(Qt::ArrowCursor); } });
 		connect(PlayButton, &QPushButton::clicked, this,
 			[=]() { m_MUSIC_PLAYER->play(); });
+		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::PlayState, this,
+			[=](bool _isPlaying) { 
+				_isPlaying ? PlayButton->setIcon(QIcon(":/Icons/play.svg")) : PlayButton->setIcon(QIcon(":/Icons/pause.svg"));
+			});
 		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::positionUpdated, this,
 			[=]() { CurrentTime->setText(m_MUSIC_PLAYER->updateTime()); });
 		connect(m_MUSIC_PLAYER, SIGNAL(positionChanged(int)), ProgressSlider, SLOT(setValue(int)));
@@ -117,17 +123,17 @@ private:
 	QStackedWidget * m_stackedwidget;
 	QGridLayout * m_gridlayout;
 	ImageWidget * AlbumImageWidget;
-	ActionButton * PreivousButton;
-	ActionButton * PlayButton;
-	ActionButton * NextButton;
-	ActionButton * ListButton;
-	ActionButton * VolumeButton;
-	ActionButton * FavouriteButton;
+	QtMaterialIconButton* PreivousButton;
+	QtMaterialIconButton * PlayButton;
+	QtMaterialIconButton* NextButton;
+	QtMaterialIconButton* ListButton;
+	QtMaterialIconButton* VolumeButton;
+	QtMaterialIconButton* FavouriteButton;
 	Label * ArtistLabel;
 	Label * TitleLabel;
 	Label * CurrentTime;
 	Label * LeftTime;
-	Slider * ProgressSlider;
+	QtMaterialSlider* ProgressSlider;
 	Menu * menu;
 	SystemTray * systemTray;
 };

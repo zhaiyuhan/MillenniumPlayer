@@ -37,10 +37,10 @@ BaseView::~BaseView()
 bool BaseView::nativeEvent(const QByteArray & eventType, void * message, long * result)
 {
 	Q_UNUSED(eventType)
-	MSG* msg = reinterpret_cast<MSG*>(message);
+		MSG* msg = reinterpret_cast<MSG*>(message);
 	switch (msg->message) {
-	case WM_NCCREATE: 
-	{
+
+	case WM_NCCREATE: {
 		auto userdata = reinterpret_cast<CREATESTRUCTW*>(msg->lParam)->lpCreateParams;
 		::SetWindowLongPtrW(msg->hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(userdata));
 	}
@@ -57,7 +57,7 @@ bool BaseView::nativeEvent(const QByteArray & eventType, void * message, long * 
 	case WM_NCHITTEST:
 	{
 		*result = 0;
-		const LONG border_width = 8;
+		const LONG border_width = 8; //in pixels
 		RECT winrect;
 		GetWindowRect(reinterpret_cast<HWND>(winId()), &winrect);
 
@@ -190,6 +190,13 @@ bool BaseView::nativeEvent(const QByteArray & eventType, void * message, long * 
 	case WM_KILLFOCUS:
 		emit isHadFocuse(false);
 		break;
+	/*case WM_LBUTTONDBLCLK:
+	{
+		if (Qt::WindowFullScreen == windowState())
+			this->showNormal();
+		if (Qt::WindowFullScreen != windowState())
+			this->isMaximized() ? this->showNormal() : this->showMaximized();
+	}*/
 	default:
 		return QWidget::nativeEvent(eventType, message, result);
 	}

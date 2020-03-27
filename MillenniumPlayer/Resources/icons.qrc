@@ -4,7 +4,8 @@
         <file>Icons/exit.svg</file>
         <file>Icons/setting.svg</file>
         <file>Icons/next.svg</file>
-        <file>Icons/play.svg</file>
         <file>Icons/previous.svg</file>
+        <file>Icons/pause.svg</file>
+        <file>Icons/play.svg</file>
     </qresource>
 </RCC>

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "MainView.h"
 #include <QPalette>
-#include "3dParty\taglib\fileref.h"
-#include "3dParty\taglib\toolkit\tstringlist.h"
+#include"3rdparty/TagLib/Includes/fileref.h"
+#include "3rdparty/TagLib/Includes/tstringlist.h"
 using namespace TagLib;
 MainView::MainView(QWidget *parent)
 	: BaseView(parent)

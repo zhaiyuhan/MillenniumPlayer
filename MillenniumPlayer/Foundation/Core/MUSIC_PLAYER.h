@@ -15,6 +15,7 @@ Q_SIGNALS:
 	void songFinished();
 	void positionUpdated();
 	void positionChanged(int Position);
+	void PlayState(bool _isplaying);
 
 public Q_SLOTS:
     void loadFile(QString& _filepath);

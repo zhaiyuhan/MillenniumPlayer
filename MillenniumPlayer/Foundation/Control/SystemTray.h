@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QSystemTrayIcon>
-
+#include "3rdparty/QMW/Includes/qtmaterialiconbutton.h"
 class SystemTray : public QSystemTrayIcon
 {
 	Q_OBJECT
@@ -23,32 +23,21 @@ private:
 	{
 		m_playWidget = new QWidget();
 
-		PlayButton = new QPushButton();
-		PreviousButton = new QPushButton();
-		NextButton = new QPushButton();
+		PlayButton = new QtMaterialIconButton(QIcon(":/Icons/play.svg"));
+		PreviousButton = new QtMaterialIconButton(QIcon(":/Icons/previous.svg"));
+		NextButton = new QtMaterialIconButton(QIcon(":/Icons/next.svg"));
 		TitleLabel = new QLabel();
 		volumeSlider = new QSlider();
 		volumeSlider->setOrientation(Qt::Horizontal);
 
 		TitleLabel->setFixedWidth(60);
 		TitleLabel->setAlignment(Qt::AlignCenter);
-		QPixmap play_pixmap(":/Icons/play.svg");
-		PlayButton->setIcon(play_pixmap);
 		PlayButton->setIconSize(QSize(32, 32));
-		PlayButton->setObjectName("transparentButton");
-		PlayButton->setFlat(true);
-
-		QPixmap  backward_pixmap(":/Icons/previous.svg");
-		PreviousButton->setIcon(backward_pixmap);
+		PlayButton->setColor(Qt::white);
 		PreviousButton->setIconSize(QSize(16, 16));
-		PreviousButton->setObjectName("transparentButton");
-		PreviousButton->setFlat(true);
-
-		QPixmap forward_pixmap(":/Icons/next.svg");
-		NextButton->setIcon(forward_pixmap);
+		PreviousButton->setColor(Qt::white);
 		NextButton->setIconSize(QSize(16,16));
-		NextButton->setObjectName("transparentButton");
-		NextButton->setFlat(true);
+		NextButton->setColor(Qt::white);
 
 		QHBoxLayout *layout = new QHBoxLayout();
 		layout->addWidget(PreviousButton);
@@ -84,9 +73,9 @@ private:
 		m_menu->addAction(m_exitAction);		
 	}
 private:
-	QPushButton *PlayButton;
-	QPushButton *PreviousButton;
-	QPushButton *NextButton;
+	QtMaterialIconButton*PlayButton;
+	QtMaterialIconButton*PreviousButton;
+	QtMaterialIconButton*NextButton;
 	QSlider * volumeSlider;
 	QLabel *TitleLabel;
 	QWidget * m_playWidget;

@@ -45,6 +45,7 @@ void MUSIC_PLAYER::loadFile(QString& _filepath)
 		BASS_ChannelPlay(m_chan, true);
 		m_timer->start(100);
 		BASS_ChannelSetSync(m_chan, BASS_SYNC_POS, 0, &syncFunc, 0);
+		emit(PlayState(false));
 	}
 
 }
@@ -57,10 +58,13 @@ void MUSIC_PLAYER::play()
 		BASS_ChannelPlay(m_chan, true);
 		m_timer->start(100);
 		BASS_ChannelSetSync(m_chan, BASS_SYNC_POS, 0, &syncFunc, 0);
+		emit(PlayState(false));
 	case BASS_ACTIVE_PLAYING:
+		emit(PlayState(true));
 		pause();
 		break;
 	case BASS_ACTIVE_PAUSED:
+		emit(PlayState(false));
 		BASS_ChannelPlay(m_chan, false);
 		break;
 	default:
