@@ -113,15 +113,16 @@ protected:
 			});
 		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::positionUpdated, this,
 			[=]() { CurrentTime->setText(m_MUSIC_PLAYER->updateTime()); });
-		//connect(m_MUSIC_PLAYER, SIGNAL(positionChanged(double)), ProgressSlider, SLOT(setValue(double)));
+
 		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::positionChanged, this, [=](double _currentposition) {
 			ProgressSlider->setValue(_currentposition);
+			qDebug() << "changed";
 			});
+
 		connect(ProgressSlider, &QSlider::sliderMoved, this, [=](double _currentposition) {
 			m_MUSIC_PLAYER->pause();
 			CurrentTime->setText(m_MUSIC_PLAYER->updateTime());
 			});
-
 		connect(ProgressSlider, &QSlider::sliderReleased, this, [=]() {
 			m_MUSIC_PLAYER->setPosition(ProgressSlider->value());
 			m_MUSIC_PLAYER->play();

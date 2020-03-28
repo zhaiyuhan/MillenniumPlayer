@@ -70,6 +70,7 @@ void MUSIC_PLAYER::play()
 		break;
 	case BASS_ACTIVE_PAUSED:
 		emit(PlayState(false));
+		m_timer->start(100);
 		BASS_ChannelPlay(m_stream, false);
 		break;
 	default:
