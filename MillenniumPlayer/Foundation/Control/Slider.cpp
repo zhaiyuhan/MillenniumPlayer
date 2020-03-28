@@ -65,3 +65,4 @@ double Slider::value() const
     int Value = QtMaterialSlider::value();
     return (double)Value / m_Multiplier;
 }
+

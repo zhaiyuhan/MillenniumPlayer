@@ -22,6 +22,15 @@ protected:
 	}
 	void dragEnterEvent(QDragEnterEvent* event);
 	void dropEvent(QDropEvent* event);
+	bool eventFilter(QObject* watched, QEvent* event)
+	{
+		if ((event->type() == QEvent::MouseButtonPress) &&
+			((watched == ProgressSlider)))
+		{
+			on_slider_mouseLButtonPress(watched, event);
+		}
+		return QWidget::eventFilter(watched, event);
+	}
 	void setupUI()
 	{
 		PreivousButton = new QtMaterialIconButton(QIcon(":/Icons/previous.svg"), this);
@@ -116,7 +125,7 @@ protected:
 
 		connect(m_MUSIC_PLAYER, &MUSIC_PLAYER::positionChanged, this, [=](double _currentposition) {
 			ProgressSlider->setValue(_currentposition);
-			qDebug() << "changed";
+			//qDebug() << "changed";
 			});
 
 		connect(ProgressSlider, &QSlider::sliderMoved, this, [=](double _currentposition) {
@@ -128,6 +137,7 @@ protected:
 			m_MUSIC_PLAYER->play();
 			CurrentTime->setText(m_MUSIC_PLAYER->updateTime());
 			});
+	
 		
 		
 	}
@@ -135,6 +145,37 @@ protected:
 	void resizeEvent(QResizeEvent *event);
 	void contextMenuEvent(QContextMenuEvent *);
 private:
+	void on_slider_mouseLButtonPress(QObject* slider, QEvent* event)
+	{
+		QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+		double cxctl = 0;  // 滑块宽度
+		double cxwnd = 0;  // 滑槽长度
+		double mxpos = 0;  // 鼠标按下的位置
+		cxctl = ProgressSlider->minimumSizeHint().width();
+		cxwnd = ProgressSlider->width();
+		if (ProgressSlider->invertedAppearance())
+			mxpos = cxwnd - mouseEvent->x();
+		else
+			mxpos = mouseEvent->x();
+		if (cxwnd <= cxctl)
+		{
+			//
+		}
+		double scpos = ProgressSlider->minimum() +
+			(double)((ProgressSlider->maximum() - ProgressSlider->minimum()) *
+				((mxpos - cxctl / 2.0) / (cxwnd - cxctl)));
+
+		if (ProgressSlider->sliderPosition() == scpos)
+		{
+			//
+		}
+		qDebug() << scpos;
+		m_MUSIC_PLAYER->pause();
+		ProgressSlider->setValue(scpos);
+		m_MUSIC_PLAYER->setPosition(scpos);
+		m_MUSIC_PLAYER->play();
+		CurrentTime->setText(m_MUSIC_PLAYER->updateTime());
+	}
 	MUSIC_TAG_INFO * m_MUSIC_TAG_INFO;
 	MUSIC_PLAYER * m_MUSIC_PLAYER;
 	QMap<QString, QString> tag;
