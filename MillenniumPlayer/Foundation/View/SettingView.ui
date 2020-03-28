@@ -318,7 +318,7 @@ QTabBar::tab:only-one {
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="widget_interface_setting">
           <widget class="QTabWidget" name="tabWidget">
@@ -331,7 +331,7 @@ QTabBar::tab:only-one {
             </rect>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tab">
             <attribute name="title">
@@ -417,14 +417,14 @@ QTabBar::tab:only-one {
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_3">
                  <item>
-                  <widget class="QRadioButton" name="radioButton_2">
+                  <widget class="QtMaterialRadioButton" name="radioButton_2">
                    <property name="text">
                     <string>最小化到托盘</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QRadioButton" name="radioButton">
+                  <widget class="QtMaterialRadioButton" name="radioButton">
                    <property name="text">
                     <string>退出程序</string>
                    </property>
@@ -442,8 +442,8 @@ QTabBar::tab:only-one {
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>221</width>
-                <height>69</height>
+                <width>92</width>
+                <height>58</height>
                </rect>
               </property>
               <attribute name="label">
@@ -940,6 +940,13 @@ QPushButton:pressed#CancelButton {
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QtMaterialRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header>qtmaterialradiobutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

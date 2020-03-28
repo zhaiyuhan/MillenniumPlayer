@@ -1,7 +1,7 @@
 #ifndef QTMATERIALRADIOBUTTON_H
 #define QTMATERIALRADIOBUTTON_H
 
-#include "components/lib/qtmaterialcheckable.h"
+#include "3rdparty/QMW/Includes/qtmaterialcheckable.h"
 
 class QtMaterialRadioButtonPrivate;
 

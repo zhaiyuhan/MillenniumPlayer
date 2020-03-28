@@ -18,13 +18,13 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "qtmaterialradiobutton.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -61,8 +61,8 @@ public:
     QWidget *page;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_3;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton;
+    QtMaterialRadioButton *radioButton_2;
+    QtMaterialRadioButton *radioButton;
     QWidget *page_2;
     QGridLayout *gridLayout_3;
     QPushButton *pushButton_10;
@@ -383,12 +383,12 @@ public:
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        radioButton_2 = new QRadioButton(page);
+        radioButton_2 = new QtMaterialRadioButton(page);
         radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
 
         verticalLayout_3->addWidget(radioButton_2);
 
-        radioButton = new QRadioButton(page);
+        radioButton = new QtMaterialRadioButton(page);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
         radioButton->setChecked(true);
 
@@ -400,7 +400,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("\345\205\263\351\227\255\344\270\273\351\235\242\346\235\277"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 221, 69));
+        page_2->setGeometry(QRect(0, 0, 92, 58));
         gridLayout_3 = new QGridLayout(page_2);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -692,8 +692,8 @@ public:
         retranslateUi(SettingView);
         QObject::connect(CancelButton, SIGNAL(clicked()), SettingView, SLOT(close()));
 
-        stackedWidget->setCurrentIndex(2);
-        tabWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         toolBox->setCurrentIndex(0);
 
 

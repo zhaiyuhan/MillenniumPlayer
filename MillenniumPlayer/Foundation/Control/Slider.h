@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QSlider>
+
 #include "3rdparty/QMW/Includes/qtmaterialslider.h"
 class Slider : public QtMaterialSlider
 {

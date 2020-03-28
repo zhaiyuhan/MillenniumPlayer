@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QWidget>
+#include "3rdparty/QMW/Includes/qtmaterialradiobutton.h"
 #include "ui_SettingView.h"
+
 class SettingView : public QWidget
 {
 	Q_OBJECT
@@ -9,7 +11,7 @@ class SettingView : public QWidget
 public:
 	SettingView(QWidget *parent = Q_NULLPTR);
 	~SettingView();
-
+	
 private:
 	void initLayouts()
 	{

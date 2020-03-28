@@ -51,7 +51,6 @@ void MUSIC_PLAYER::loadFile(QString& _filepath)
 		m_timer->start(100);
 		BASS_ChannelSetSync(m_stream, BASS_SYNC_POS, 0, &syncFunc, 0);
 		emit(PlayState(false));
-		//(int)BASS_ChannelBytes2Seconds(m_chan, BASS_ChannelGetPosition(m_chan));
 	}
 
 }
@@ -116,12 +115,11 @@ void MUSIC_PLAYER::setPosition(double position)
 
 QString MUSIC_PLAYER::updateTime()
 {
-	
 	if (BASS_ChannelIsActive(m_stream) != BASS_ACTIVE_STOPPED)
 	{
 		QTime elapsedtime(0, 0, 0, 0);
-	elapsedtime = elapsedtime.addSecs(BASS_ChannelBytes2Seconds(m_stream, BASS_ChannelGetPosition(m_stream, BASS_POS_BYTE)));
-	return elapsedtime.toString("mm:ss");
+		elapsedtime = elapsedtime.addSecs(BASS_ChannelBytes2Seconds(m_stream, BASS_ChannelGetPosition(m_stream, BASS_POS_BYTE)));
+		return elapsedtime.toString("mm:ss");
 	
 	}
 	return QString();

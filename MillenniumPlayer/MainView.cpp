@@ -14,6 +14,25 @@ MainView::MainView(QWidget *parent)
 	EnableWindowShadow(true);
 	initView();
 	setWindowIcon(QIcon(":/logo.ico"));
+	setAcceptDrops(true);
+}
+
+void MainView::dragEnterEvent(QDragEnterEvent* event)
+{
+}
+
+void MainView::dropEvent(QDropEvent* event)
+{
+	QList<QUrl> urls = event->mimeData()->urls();
+	if (urls.isEmpty()) {
+		return;
+	}
+
+	QString fileName = urls.first().toLocalFile();
+	if (fileName.isEmpty()) {
+		return;
+	}
+	m_MUSIC_PLAYER->loadFile(fileName);
 }
 
 void MainView::initView()
