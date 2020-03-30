@@ -15,7 +15,6 @@ MainView::MainView(QWidget *parent)
 	initView();
 	setWindowIcon(QIcon(":/logo.ico"));
 	setAcceptDrops(true);
-	ProgressSlider->installEventFilter(this);
 	this->installEventFilter(this);
 }
 
