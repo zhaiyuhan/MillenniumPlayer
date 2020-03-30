@@ -129,16 +129,21 @@ protected:
 		m_gridlayout->addWidget(NextButton, 5, 2, 1, 1, Qt::AlignHCenter | Qt::AlignVCenter);
 		m_hboxlayout->addWidget(AlbumImageWidget);
 		m_hboxlayout->addLayout(m_gridlayout);
+		QHBoxLayout* mainlayout = new QHBoxLayout(this);
+		mainlayout->setAlignment(Qt::AlignCenter);
+		mainlayout->addLayout(m_hboxlayout);
 		m_stackedwidget = new StackedWidget(this);
 		
 		w1 = new QWidget();
 		w2 = new PlayList();
-
-		w1->setLayout(m_hboxlayout);
+		//w1->setFixedSize(600, 300);
+		w1->setLayout(mainlayout);
+		
 		m_stackedwidget->insertWidget(0, w1);
 		m_stackedwidget->insertWidget(1, w2);
 		w2->setSourceModel(createMailModel(w2));
-		m_stackedwidget->resize(600, 300);
+		
+		
 		m_stackedwidget->setSpeed(1000);
 		m_stackedwidget->setDirectonMode(DirectionMode::Vertical);
 		connect(ListButton, &QPushButton::clicked, this, [=]()

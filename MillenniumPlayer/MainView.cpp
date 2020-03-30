@@ -52,8 +52,14 @@ void MainView::initView()
 
 void MainView::resizeEvent(QResizeEvent * event)
 {
+	m_stackedwidget->resize((event->size().width() - 100), 
+		event->size().height() - 100);
 	ListButton->move((event->size().width() - 50), 20);	
-	m_stackedwidget->move(((event->size().width()-600) / 2), ((event->size().height()-300) / 2));
+	m_stackedwidget->move(
+	(event->size().width() - m_stackedwidget->width())/2, 
+		(event->size().height()- m_stackedwidget->height() )/ 2
+		);
+	
 	BaseView::resizeEvent();
 }
 
