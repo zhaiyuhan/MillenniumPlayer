@@ -139,8 +139,8 @@ protected:
 		m_stackedwidget->insertWidget(1, w2);
 		w2->setSourceModel(createMailModel(w2));
 		m_stackedwidget->resize(600, 300);
-		m_stackedwidget->setSpeed(500);
-		m_stackedwidget->setVerticalMode(true);
+		m_stackedwidget->setSpeed(1000);
+		m_stackedwidget->setDirectonMode(DirectionMode::Vertical);
 		connect(ListButton, &QPushButton::clicked, this, [=]()
 		{ 
 				switch (m_stackedwidget->currentIndex())
