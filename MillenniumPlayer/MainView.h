@@ -1,10 +1,13 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QPropertyAnimation>
 #include "3rdparty/QMW/Includes/qtmaterialiconbutton.h"
 #include "3rdparty/QMW/Includes/qtmaterialslider.h"
 #include "Foundation/View/BaseView.h"
 #include "Foundation/Control/ActionButton.h"
+#include "Foundation/Control/PlayList.h"
+#include "Foundation/Control/StackedWidget.h"
 #include "Foundation/Core/MUSIC_TAG_INFO.h"
 #include "Foundation/Core/MUSIC_PLAYER.h"
 
@@ -15,6 +18,27 @@ class MainView : public BaseView
 public:
 	MainView(QWidget *parent = Q_NULLPTR);
 
+	void addMusic(QAbstractItemModel* model, 
+		QString title, QString album, QString artist)
+	{
+		model->insertRow(0);
+		model->setData(model->index(0, 0), title);
+		model->setData(model->index(0, 1), album);
+		model->setData(model->index(0, 2), artist);
+	}
+	QAbstractItemModel* createMailModel(QObject* parent)
+	{
+		QStandardItemModel* model = new QStandardItemModel(0, 3, parent);
+
+		model->setHeaderData(0, Qt::Horizontal, QObject::tr("¸èÇú"));
+		model->setHeaderData(1, Qt::Horizontal, QObject::tr("Sender"));
+		model->setHeaderData(2, Qt::Horizontal, QObject::tr("Date"));
+
+		addMusic(model, "Lover", "Artsit", "Swift");
+		addMusic(model, "Lover", "Artsit", "Swift");
+		addMusic(model, "Lover", "Artsit", "Swift");
+		return model;
+	}
 protected:
 	void dragMoveEvent(QDragMoveEvent* event)
 	{
@@ -24,10 +48,25 @@ protected:
 	void dropEvent(QDropEvent* event);
 	bool eventFilter(QObject* watched, QEvent* event)
 	{
-		if ((event->type() == QEvent::MouseButtonPress) &&
-			((watched == ProgressSlider)))
+		if (watched == ProgressSlider)
 		{
-			on_slider_mouseLButtonPress(watched, event);
+			if (event->type() == QEvent::MouseButtonPress)
+			{
+				on_slider_mouseLButtonPress(watched, event);
+				return true;
+			}
+			else {
+				return false;
+			}		
+		}
+		else if (watched == this) {
+			if (event->type() == QEvent::MouseButtonDblClick)
+			{
+				if (Qt::WindowFullScreen == windowState())
+					this->showNormal();
+				if (Qt::WindowFullScreen != windowState())
+					this->isMaximized() ? this->showNormal() : this->showMaximized();
+			}
 		}
 		return QWidget::eventFilter(watched, event);
 	}
@@ -90,17 +129,32 @@ protected:
 		m_gridlayout->addWidget(NextButton, 5, 2, 1, 1, Qt::AlignHCenter | Qt::AlignVCenter);
 		m_hboxlayout->addWidget(AlbumImageWidget);
 		m_hboxlayout->addLayout(m_gridlayout);
-		m_stackedwidget = new QStackedWidget(this);
+		m_stackedwidget = new StackedWidget(this);
 		
-		QWidget *w1 = new QWidget();
-		QWidget *w2 = new QWidget();
+		w1 = new QWidget();
+		w2 = new PlayList();
+
 		w1->setLayout(m_hboxlayout);
-		m_stackedwidget->addWidget(w1);
-		m_stackedwidget->addWidget(w2);
-		connect(ListButton, &QPushButton::clicked, this, [=]()
-		{ m_stackedwidget->setCurrentWidget(w2); });
+		m_stackedwidget->insertWidget(0, w1);
+		m_stackedwidget->insertWidget(1, w2);
+		w2->setSourceModel(createMailModel(w2));
 		m_stackedwidget->resize(600, 300);
-		//setLayout(m_hboxlayout);
+		m_stackedwidget->setSpeed(500);
+		m_stackedwidget->setVerticalMode(true);
+		connect(ListButton, &QPushButton::clicked, this, [=]()
+		{ 
+				switch (m_stackedwidget->currentIndex())
+				{
+				case 0:
+					m_stackedwidget->slideInNext();
+					break;
+				case 1:
+					m_stackedwidget->slideInPrev();
+					break;
+				}
+				
+			});
+		
 	}
 	void initEvents()
 	{		
@@ -137,9 +191,6 @@ protected:
 			m_MUSIC_PLAYER->play();
 			CurrentTime->setText(m_MUSIC_PLAYER->updateTime());
 			});
-	
-		
-		
 	}
 	void initView();
 	void resizeEvent(QResizeEvent *event);
@@ -181,8 +232,10 @@ private:
 	QMap<QString, QString> tag;
 	QImage coverPicture;
 private:
+	QWidget* w1;
+	PlayList* w2;
 	QHBoxLayout * m_hboxlayout;
-	QStackedWidget * m_stackedwidget;
+	StackedWidget* m_stackedwidget;
 	QGridLayout * m_gridlayout;
 	ImageWidget * AlbumImageWidget;
 	QtMaterialIconButton* PreivousButton;

@@ -6,7 +6,7 @@
 
 #pragma comment (lib,"Dwmapi.lib")
 
-class BaseView : public QMainWindow
+class BaseView : public QWidget
 {
 	Q_OBJECT
 

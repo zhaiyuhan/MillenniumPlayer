@@ -61,6 +61,12 @@
     <Filter Include="Foundation\Core">
       <UniqueIdentifier>{ee48748b-042f-4326-b8f2-15beaa75c5a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Foundation\Control\PlayList">
+      <UniqueIdentifier>{797d08c5-b628-4f8c-8ce4-997746373d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Foundation\Control\StackWidget">
+      <UniqueIdentifier>{b2a33fe6-9739-4b09-922b-13b9a755dcb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -210,6 +216,24 @@
     <ClCompile Include="Foundation\View\InformationView.cpp">
       <Filter>Foundation\View</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PlayList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PlayList.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\PlayList.cpp">
+      <Filter>Foundation\Control\PlayList</Filter>
+    </ClCompile>
+    <ClCompile Include="Foundation\Control\StackedWidget.cpp">
+      <Filter>Foundation\Control\StackWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_StackedWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_StackedWidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -285,6 +309,12 @@
     </CustomBuild>
     <CustomBuild Include="Foundation\View\InformationView.h">
       <Filter>Foundation\View</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\PlayList.h">
+      <Filter>Foundation\Control\PlayList</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Foundation\Control\StackedWidget.h">
+      <Filter>Foundation\Control\StackWidget</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

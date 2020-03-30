@@ -3,7 +3,7 @@
 #include "Foundation/Control/CaptionButton.h"
 
 BaseView::BaseView(QWidget *parent)
-	: QMainWindow(parent)
+	: QWidget(parent)
 {
 	setWindowFlags(Qt::WindowMinMaxButtonsHint | Qt::FramelessWindowHint);
 	HWND hWnd = (HWND)this->winId();
@@ -190,13 +190,6 @@ bool BaseView::nativeEvent(const QByteArray & eventType, void * message, long * 
 	case WM_KILLFOCUS:
 		emit isHadFocuse(false);
 		break;
-	/*case WM_LBUTTONDBLCLK:
-	{
-		if (Qt::WindowFullScreen == windowState())
-			this->showNormal();
-		if (Qt::WindowFullScreen != windowState())
-			this->isMaximized() ? this->showNormal() : this->showMaximized();
-	}*/
 	default:
 		return QWidget::nativeEvent(eventType, message, result);
 	}

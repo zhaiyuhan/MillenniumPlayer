@@ -16,6 +16,7 @@ MainView::MainView(QWidget *parent)
 	setWindowIcon(QIcon(":/logo.ico"));
 	setAcceptDrops(true);
 	ProgressSlider->installEventFilter(this);
+	this->installEventFilter(this);
 }
 
 void MainView::dragEnterEvent(QDragEnterEvent* event)
@@ -109,7 +110,9 @@ void MainView::contextMenuEvent(QContextMenuEvent *)
 	connect(SettingAction, &QAction::triggered, this,
 		[=]() { 
 		SettingView *settingview = new SettingView(this);  
-		settingview->show(); });
+		settingview->show(); 
+		// here is some bugs
+		});
 
 	menu->addAction(HiddenAction);
 	connect(HiddenAction, &QAction::triggered, this,
